@@ -64,7 +64,7 @@ After modifying the perl script it can be executed like:
     
 Resulting in the same 21 lines as in the previous example.
 
-##Challenge
+###Challenge
     
 If an experiment involves multiple bam files we extend the pipeline like this:
 
@@ -87,7 +87,7 @@ Which can be executed as:
 Note that we use quotes here to tell the script that it should take the list of bam files as a single argument.
 
 
-#Writing binary files
+##Writing binary files
 Now we want to store the 41 lines of output, that are currently being printed to the screen, in a file using the binary format.
 
 Using the shell pipes the command would look like this:
@@ -106,7 +106,7 @@ Whereas in the perl script we add an output filehandle which decribes the output
     }
 
 
-#The optional use of compression
+##The optional use of compression
 Considder the following command in which paired reads RNA-seq data in read1.fastq.gz and read2.fastq.gz is aligned to the reference using a popular multi pupose aligner [gsnap](http://research-pub.gene.com/gmap/)  with a minimal set of options.
 
     gsnap read1.fastq.gz read2.fastq.gz -d reference -A sam -N --gunzip
@@ -126,10 +126,10 @@ The odd thing is now that samtools view compresses the output by default and sam
 
     gsnap read1.fastq.gz read2.fastq.gz -d reference -A sam -N --gunzip | samtools view -Sbu | samtools sort - mapped.sorted
 
-#Additional creative use of compression flags
+##Additional creative use of compression flags
 In case you are having a bloody fast temp or scratch space on your computer you might tune algorithms that by default write copressed output to temp but allow for uncompressed writing of temporary files.  
 
-#Advantages of using indexed binary files
+##Advantages of using indexed binary files
 Alignment files that are stored in bam and that come with an index (bam.bai) allow for random acces to the data. If you have a bam file but no index, the index file can be created by typing:
 
     samtools index in.bam
