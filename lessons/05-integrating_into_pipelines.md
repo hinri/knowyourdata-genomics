@@ -44,8 +44,7 @@ Lets assume we have simple sam file parser written in perl (maParser.pl)
         print $_;
     }
     
-Then we can read bam just by using tool "samtools" and a shell pipe as explained in:
- - Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
+Then we can read bam just by using tool "samtools" and a shell pipe as explained in Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
     
     samtools view -h in.bam |perl myParser.pl
 
