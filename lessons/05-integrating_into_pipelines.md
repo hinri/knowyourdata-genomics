@@ -143,4 +143,4 @@ Now we have a bam file with index we can now query for the reads that map in a p
 Here we assume that scaffold with name "Chr5" exists in the bam file. Please invoke:
 
     samtools view -H bamfile.bam |grep '@SQ'
-to see how the scaffolds are named in your bamfile
+to see how the scaffolds are named and what their lengths are in your bamfile
