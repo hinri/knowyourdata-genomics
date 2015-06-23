@@ -103,23 +103,24 @@ Whereas in the perl script we add an output filehandle which also decribes the o
     }
 
 
-
-
 #The optional use of compression
-Considder the following command in which paired reads RNA-seq data in read1.fastq.gz and read2.fastq.gz is aligned to the reference using gsnap <ref> with a minimal set of options.
+Considder the following command in which paired reads RNA-seq data in read1.fastq.gz and read2.fastq.gz is aligned to the reference using gsnap[gsnap](http://research-pub.gene.com/gmap/)  with a minimal set of options.
 
     gsnap read1.fastq.gz read2.fastq.gz -d refrence -A sam -N --gunzip | samtools view -Sbu - |samtools sort -m 8000000000 - mapped.sorted.bam"
     
-We make gsnap compression aware by using the optional --gunzip flag so there is no need to unzip the input data which saves a lot of (temporary) diskspace. Furthermore we tell gsnap to write sam (instead of gsnap native) output. Gsnap is (currently) not able to write bam directly so we pipe the out put to samtools view -Sb which makes bam out of sam. In the downstream analyses it might be useful to have coordinate sorted bam files which allows for merging and indexing. In order to sort the bamfile we tell samtools sort to read from standard input (-) and tel samtools view to pass the data UNCOMPRESSED (-u) to standard output. By explicitly telling samtools view to pass the data ucompressed we drastically reduce the number of required cpu cycles to complete the anlyses. Otherwise samtools view would have compressed the output (computation intensive) and samtools sort would have decopressed it anyway in order to perform sorting.
+We make gsnap compression aware by using the optional --gunzip flag so there is no need to unzip the input data which saves a lot of (temporary) diskspace. Furthermore we tell gsnap to write sam (instead of gsnap native) output. Gsnap is (currently) not able to write bam directly so we pipe the out put to samtools view -Sb which makes bam out of sam. In the downstream analyses it might be useful to have coordinate sorted bam files which allows for merging and indexing. In order to sort the bamfile we tell samtools sort to read from standard input (-) and tel samtools view to pass the data UNCOMPRESSED (-u) to standard output. By explicitly telling samtools view to pass the data ucompressed we drastically reduce the number of required cpu cycles to complete the anlyses. Otherwise samtools view would have compressed the output (computation intensive) and samtools sort would have decompressed it anyway in order to perform sorting.
+
+#Additional creative use of compression flags
+In case you are having a bloody fast temp or scratch space on your computer you might tune algorithms that by default write copressed output to temp but allow for uncompressed writing of temporary files.  
+
+#Advantages of using indexed binary files
+Alignment files stored in bam and that come with an index (bam.bai) allow for random acces to the data. As an example we show here hw to query for the reads that map in region Chr5:500000-550000.
+    samtools view -h mapped.sorted.bam Chr5:500000-550000
 
 
-
-more complex examples:
+#more complex examples:
 On the fly trimming of paired end reads prior to alignment. Major adavantage is that trimming and alignment occurs simultaniously and no "trimmed data" is written to disk.
 
 finding pairs in fastq data and put them in the same order.
 
 
-Enter the command:
-
-    git clone https://github.com/tracykteal/tutorials/
