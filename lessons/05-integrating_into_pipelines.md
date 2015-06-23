@@ -6,7 +6,7 @@ minutes: 5
 ---
 
 
-Getting to intergrate binary formats into your pilelines
+Getting binary file formats integrated into your pilelines
 ===================
 
 Learning Objectives:
