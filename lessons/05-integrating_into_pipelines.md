@@ -44,7 +44,7 @@ Lets create a perl script that prints the first 41 lines of a file and we name i
         print $_;
     }
 
-Then we can read the first 41 lines of a bam file by using our perl script, a tool named [samtools](www.htslib.org) and a shell pipe as explained in Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
+Then we can read the first 41 lines of a bam file by using our perl script, a tool named [samtools](http://www.htslib.org) and a shell pipe as explained in Software Carpentry tutorial - [The Unix shell](http://software-carpentry.org/v4/shell/index.html)
     
     samtools view -h in.bam |perl myParser.pl
 
