@@ -33,7 +33,7 @@ These advantages include:
 * Indexed for fast searches
 
 ## Where can I get a bamfile of a reasonable size to practice on?
-[GSM847334]http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM847334
+[GSM847334](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM847334)
 
 ##Reading from binary files
 Lets create a perl script that prints the first 41 lines of a file and we name it maParser.pl 
