@@ -25,7 +25,7 @@ Learning Objectives:
 * You should be able to make the right decission in applying compression
 * You should be abe to make effective use of binary file indexing
 
-## Why using binary formats?
+## Why using binary file formats?
 Binary formats of a particular genomics/genetics data type have advantages over text format files:
 These advantages include:
 * File consisency checks (data type and truncation)
@@ -33,9 +33,7 @@ These advantages include:
 * Indexed for fast searches
 
 
-##
-
-#reading from binary
+##Reading from binary files
 Lets assume we have simple sam file parser written in perl (maParser.pl) 
 
     while (<STDIN>){
@@ -50,7 +48,7 @@ Then we can read bam just by using tool "samtools" and a shell pipe as explained
 
 Another option is intergrating the pipe construction in the perl code like:
 
-    open (Bam, "samtools view -h $ARGV[0] |");                                                                                                                           
+    open (Bam, "samtools view -h $ARGV[0] |");
     my $count=0;
     while (<Bam>){
         last if ($count >20);
@@ -86,29 +84,28 @@ Note that we use quotes here to tell the script that it should take the list of 
 
 
 
-#writing binary
-Now we want to store the parsed results, that are currently printed to the screen, in a file using the binary format
+#Writing binary files
+Now we want to store the parsed results, that are currently printed to the screen, in a file using the binary format.
 
 Using the shell pipes the command would look like this:
     samtools view in.bam |perl myParser.pl|samtools -Sb -o out.bam -
 
-Whereas in in the perl script we add an output filehandle which als decribeds the output pipe
+Whereas in the perl script we add an output filehandle which also decribes the output pipe:
 
-open (inBam, "samtools view -h $ARGV[0] |");
-open (outBam, "|samtools view -Sb -o $ARGV[0].parsed - ");
+    open (inBam, "samtools view -h $ARGV[0] |");
+    open (outBam, "|samtools view -Sb -o $ARGV[0].parsed - ");
 
-my $count=0;
-while (<inBam>){
-    last if ($count >20);
-	$count++; 
-    print outBam;
-}
-
-
+    my $count=0;
+    while (<inBam>){
+        last if ($count >20);
+	    $count++; 
+        print outBam;
+    }
 
 
 
-#writing binary
+
+
 
 
 more complex examples:
