@@ -85,7 +85,7 @@ Note that we use quotes here to tell the script that it should take the list of 
 
 
 #Writing binary files
-Now we want to store the parsed results, that are currently printed to the screen, in a file using the binary format.
+Now we want to store the parsed results, that are currently being printed to the screen, in a file using the binary format.
 
 Using the shell pipes the command would look like this:
     samtools view in.bam |perl myParser.pl|samtools -Sb -o out.bam -
@@ -105,6 +105,12 @@ Whereas in the perl script we add an output filehandle which also decribes the o
 
 
 
+#The optional use of compression
+Considder the following command in which paired reads RNA-seq data in read1.fastq.gz and read2.fastq.gz is aligned to the reference using gsnap <ref> with a minimal set of options.
+
+    gsnap read1.fastq.gz read2.fastq.gz -d refrence -A sam -N --gunzip | samtools view -Sbu - |samtools sort -m 8000000000 - mapped.sorted.bam"
+    
+We make gsnap compression aware by using the optional --gunzip flag so there is no need to unzip the input data which saves a lot of (temporary) diskspace. Furthermore we tell gsnap to write sam (instead of gsnap native) output. Gsnap is (currently) not able to write bam directly so we pipe the out put to samtools view -Sb which makes bam out of sam. In the downstream analyses it might be useful to have coordinate sorted bam files which allows for merging and indexing. In order to sort the bamfile we tell samtools sort to read from standard input (-) and tel samtools view to pass the data UNCOMPRESSED (-u) to standard output. By explicitly telling samtools view to pass the data ucompressed we drastically reduce the number of required cpu cycles to complete the anlyses. Otherwise samtools view would have compressed the output (computation intensive) and samtools sort would have decopressed it anyway in order to perform sorting.
 
 
 
