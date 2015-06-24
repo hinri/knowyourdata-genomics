@@ -6,7 +6,7 @@ minutes: 5
 ---
 
 
-Getting binary file formats integrated into your pilelines
+Getting binary file formats integrated into your pipelines
 ===================
 
 Learning Objectives:
